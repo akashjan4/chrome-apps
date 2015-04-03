@@ -1,0 +1,302 @@
+<!Doctype html>
+<html>
+<head>
+
+
+<style type="text/css">
+*{
+margin:0px auto;
+padding:0px;
+
+}
+header,nav,article,section,footer,aside{display:block;}
+
+html,body{width:100%;height:100%;}
+.contanier{
+width:100%;
+height:100%;
+background:#DEE0E2;
+margin:0px;
+/*border:1px solid Green;*/
+display:flex;
+
+}
+header
+{
+width:100%;
+height:auto;
+padding:0px;
+
+background:#2F96EA;
+}
+header nav{
+float:right;
+margin:10px 20px 0px 0px;
+}
+header progress{
+  width:100%;
+  height:5px;
+  background-color:#f3f3f3;
+  
+}
+header img
+{
+  margin:10px 0px 0px 20px;
+}
+h4{
+  margin:10px;
+  font-size:13pt;
+  font-weight:400;
+}
+.logo{
+width:180px;
+height:30px;
+
+}
+.left_side{
+float:left;
+width:75%;
+font-size:12px;
+background:#f3f3f3;
+}
+.left_side h4
+{
+  color:#3F4A59;;
+}
+.right_side{
+float:right;
+background:#3F4A59;
+width:30%;
+overflow:hidden;
+}
+.right_side h4
+{
+  color:#f3f3f3;;
+}
+.left_side,.right_side{overflow:auto; margin-bottom:10px;}
+.btnimg{height:45px;width:45px; background:#CDE5A0;border-radius:50%}
+.btnPauseimg{height:45px;width:45px; background:#FFDDA1;border-radius:50%;margin-right:5px;}
+.btnStopimg{height:45px;width:45px; background:#FF3300;border-radius:50%;margin-right:5px;}
+.taskdiv{
+height:8em;
+width:16em;
+background:#FFFFFF;
+border-radius:4px;
+padding:10px;
+margin: 2em 0em 0em 2em ;
+float:left;
+line-height:17px;
+}
+
+
+.taskdiv section{float:left;}
+.taskdiv aside{float:right}
+.taskdiv footer{
+float:left;
+width:100%;
+margin:20px 0px;
+font-size:12px;
+overflow:hidden;
+}
+.ftr_left
+{
+float:left;
+padding-top:2px;
+}
+.ftr_right{
+float:right;
+margin:1px 0px;
+font-size:2em;
+font-weight:600;
+
+}
+.page_footer{
+clear:both;
+border:2px solid red;
+text-align:center;
+}
+.p_task
+ {
+ color:#288FD4;
+ font-weight:800;
+ font-size:12px;
+ }
+.taskprogress
+ {
+     width:20em;
+     height:8em;
+     background:#FFFFFF;
+     display:block;
+     border-radius:4px;
+      padding:10px;
+     margin:2em auto;
+     line-height:17px;
+padding: 0px 0px 0px; 
+width:100%;
+  
+ }
+ .taskprogress section
+ {
+     float:left;
+ }
+ .taskprogress aside{float:right;text-align:center;}
+ 
+ .taskprogress footer{
+float:left;
+text-align:center;
+margin:10px 0px;
+
+}
+  .taskprogress aside p{
+     color:#288FD4;
+ font-weight:800;
+ font-size:12px;
+  }
+  
+  #btnAddTask
+	{
+	  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background-image: url("../img/add2.png");
+  background-size: 22px;
+  background-color: #2F96EA;
+  color: #FFFFFF;
+  margin: 10px auto;
+  border: 0px solid #EEF2F5;
+  overflow: hidden;
+  box-shadow: 0 0 6px black;
+  background-repeat: no-repeat;
+  background-position: center;
+	}
+	.ftrAdd{margin-left:2em; width:auto; position:absolute;bottom:2%; z-index:999;}
+	#newTask{display:none;text-align:left;margin:0px; background:#f3f3f3;padding:5px;z-index:999;}
+
+
+#newTask input,textarea
+{
+  display: block;
+ border-top:none;
+ border-left:1px solid #2F96EA;
+  border-right:1px solid #2F96EA;
+   border-bottom:1px solid #2F96EA;
+   background:transparent;
+   color:#2F96EA;
+  line-height:2em;
+   min-width:10em;
+   width:15em;
+   border-radius:3px;
+ 
+}
+  #newTask lable{ color:#2F96EA;font-weight:400;}
+@media screen and (max-width: 800px) {
+    .right_side {
+        width:40%;
+        
+    }
+      .left_side {
+        width:60%;
+    }
+   
+   
+  
+}
+#drag
+{
+ -webkit-app-region:drag;
+}
+</style>
+
+<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="popup.js"></script>
+</head>
+<body>
+
+<header >
+<nav>
+      <button type="button" id="minimize" ><p>Minimize</p></button>
+       <button type="button" id="drag"><p>Drag</p></button>
+      <button type="button"id="restore"><p>Restore</p></button>
+      <button type="button" id="maximize"><p>Maximise</p></button>
+      <button type="button" id="close"><p>Close</p></button>
+  </nav>
+<img src="../img/Logo_white.png" alt="Log Area" class="logo" />
+<progress min="0" max="100" value="0" id="progBar"></progress>
+</header>
+
+
+
+<div class="contanier">
+<section class="left_side" id="task_holder">
+<h4>My Tasks</h4>
+
+<!--
+<div class="taskdiv">
+<section>
+<p class="p_task">Testing</p>
+<p>sprint 03</p>
+<p>23-12-2014 to 12-03-15</p>
+</section>
+<aside>
+<img src="play.png"  class="btnimg"></img>
+</aside>
+<footer>
+<div class="ftr_left"><p>Appex mobile Application</div>
+<div class="ftr_right"><p>0:0:0</p></div>
+</footer>
+</div>
+-->
+
+
+</section>
+<section class="right_side" id="progess_holder">
+<h4>In progress</h4>
+
+<!--
+<div class="taskprogress">
+<section>
+<p class="p_task">Testing</p>
+<p>sprint 03</p>
+<p>23-12-2014 to 12-03-15</p>
+</section>
+<aside>
+<img src="img/pause.png"  class="btnPauseimg"></img>
+<img src="img/stop.png"  class="btnStopimg"></img>
+</aside>
+
+<footer>
+<div class="ftr_left"><p>Appex mobile Application</div>
+<div class="ftr_right"><p>0:0:0</p></div>
+</footer>
+</div>
+-->
+
+</section>
+</div>
+<aside class="ftrAdd">
+<button type="button" id="btnAddTask"></button>
+<div id="newTask">
+
+<lable for="pName">Project </lable>
+<input type="Text" id="pName" value="" ></input>
+
+
+<lable for="module">Module </lable>
+<input type="Text" id="moudle" value="" ></input>
+
+<lable for="task">Task</lable>
+<input type="Text" id="task" value="" ></input>
+
+<lable for="desc">Description</lable>
+<textarea  id="desc" rows=3 cols=22>Discription Here...</textarea >
+
+<lable for="hrs">Hours</lable>
+<input type="Text" id="hrs" value="0" ></input>
+
+<button type="button" id="addTask" value="Add Task" >Apply</button>
+
+</div>
+</aside>
+
+</body>
+</html>
