@@ -1,0 +1,21 @@
+{
+"name":"CrxTest",
+"manifest_version":2,
+"version":"0.0.0.1",
+"description":"Time Sheet:Chrome Test",
+"app":{
+
+"background":
+ {
+
+"scripts": ["background.js"]
+
+ }
+},
+  "icons": { "16":"img/16.png",
+           "48": "img/48.png",
+           "144":"img/144.png"},
+"permissions":["idle","identity","alarms","identity.email", "notifications","storage","http://localhost:3000/getTask"]
+
+
+}
