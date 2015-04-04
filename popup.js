@@ -1,12 +1,12 @@
 
 
-//var jsonObject = '[{"projectId": "226376", "projectName": "Agile Methodology","fetaureId": "226386","fetureName": "Test module 1","taskId": "228512","taskName": "GR-1-rest"}, {"projectId": "221972","projectName": "ECS Amalgom1","fetaureId": "229129","fetureName": "delete from default_milestone","taskId": "229359","taskName": "GR-1-Amalgum-T2"},{"projectId": "226345", "projectName": "Agile Methodology 2","fetaureId": "226332","fetureName": "Test module 2","taskId": "223412","taskName": "GR-1-rest23"}]';
+var jsonObject = '[{"projectId": "226376", "project_name": "Agile Methodology","fetaureId": "226386","feature_name": "Test module 1","task_id": "228512","task_name": "GR-1-rest"}, {"projectId": "221972","project_name": "ECS Amalgom1","fetaureId": "229129","feture_name": "delete from default_milestone","task_id": "229359","task_name": "GR-1-Amalgum-T2"},{"projectId": "226345", "projectName": "Agile Methodology 2","fetaureId": "226332","feture_name": "Test module 2","task_id": "223412","task_name": "GR-1-rest23"}]';
 var pause=false;
 var lastValue=[];
 var username;
  
 $(document).ready(function () {
-chrome.runtime.getBackgroundPage(function(win){
+/*chrome.runtime.getBackgroundPage(function(win){
 if(win.GetValidUser())
 {
 
@@ -17,8 +17,9 @@ GetTaskData();
 //ClearTickerLocalStorage();
 //RemoveFromLocalStorage();
 }
-});
-
+});*/
+restResponse=jsonObject;
+init();
 document.getElementById("close").addEventListener("click", function(e){
 /*  chrome.alarms.create("close_app_notifiy",{
             delayInMinutes:0.1,periodInMinutes:0.1
@@ -299,13 +300,14 @@ function StartAddEvent(taskid)
   {
  $(this).css({'background-color':'#CDE5A0'});
  $(this).attr('src', "../img/play.png") ;
- tickTime=tick.innerHTML;
+ 
+  tickTime=tick.innerHTML;
   TickerTimer(tick,false);
    pause=false;
-   totalTime= TaskPop(taskid);
-   totalTime=totalTime*60;
-  totalTime= ConverterToHour(totalTime);
- // tick.innerHTML= totalTime;
+   var time =new Date().getTime();
+   transaction.push({key:taskid,alloc:0,time:time}); //push 0% if paused 4apr15
+   TaskPop(taskid);
+  
   }
   else
   {
@@ -369,19 +371,7 @@ function StartAddEvent(taskid)
 function FinishTask(elementId)
 {
   CheckStorageArrayForEnd(elementId);
- /*if(lastValue.length>0)
-  {
-    for(var i in lastValue )
-    {
-      if(lastValue[i].key===elementId)
-      {
-        lastValue.splice(i,1);
-       
-      }
-     
-    }
-  }
-  StoreTickerLastState(lastValue); */
+ 
 }
 //____End________###############################################################
 function CheckStorageArrayForEnd(id)
@@ -514,7 +504,7 @@ function GenProgressUI(proj,mod,tsk,taskid)
   btnpause.id="pause_"+taskid;
   var btnstop = document.createElement("img");
   btnstop.className = "btnStopimg";
-  btnstop.src = "../img/stop2.png";
+  btnstop.src = "../img/stop.png";
   btnstop.id="stop_"+taskid;
   var alloc =document.createElement("p");
   alloc.id="alloc_"+taskid;
@@ -634,7 +624,7 @@ function TaskPush(id)
 	var time =new Date().getTime();
 	var totalTime=0;
 	var tmpPer=0;
-	var percentage=100;
+	var percentage=0;
 
 
 	tasks.push({key:id,value:time});
