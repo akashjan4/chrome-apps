@@ -368,12 +368,36 @@ document.getElementById("alloc_"+taskid).addEventListener('click',function(){
     
   });
 document.getElementById("edit_"+taskid).addEventListener('keydown',function(e){
-  
-  if(e.keyCode === 13)
+   
+  if(e.keyCode === 13 && this.value.length!==0)
   {
+    console.log(this.value);
     document.getElementById("alloc_"+taskid).style.zIndex=1;
+    ////Dummy///////////////////
+    //1.calculate for other 
+    var length=2;
+    var otherboxvalue=(100-this.value)/length;
+    //set this value for other task running 
+    console.log(otherboxvalue);
+    
+    //////////////////////
+    document.getElementById("alloc_"+taskid).innerHTML = this.value+"%";
     this.style.zIndex=-1;
+    
+    
   }
+  if ( event.keyCode == 46 || event.keyCode == 8 ) {
+    		// let it happen, don't do anything
+    	}
+    	else if (event.keyCode < 48 || event.keyCode > 57 ) {
+    	  // Ensure that it is a number and stop the keypress
+    			event.preventDefault();	
+    		}
+    
+  });
+  document.getElementById("edit_"+taskid).addEventListener('keyup',function(e){
+  
+ 
     
   });
 }
