@@ -279,6 +279,7 @@ nowTime =GetNowLocalTime();
 
 GenProgressUI(proj,mod,tsk,taskid);
 var tick=document.getElementById("tick_"+taskid);
+
 var tickInitTime=tick.innerHTML;
 tickInitTime=ConvertToSec(tickInitTime);
         TickerTimer(tick,true,tickInitTime);
@@ -361,7 +362,20 @@ function StartAddEvent(taskid)
         
             
 });
+document.getElementById("alloc_"+taskid).addEventListener('click',function(){
+    document.getElementById("edit_"+taskid).style.zIndex=1;
+    this.style.zIndex=-1;
+    
+  });
+document.getElementById("edit_"+taskid).addEventListener('keydown',function(e){
   
+  if(e.keyCode === 13)
+  {
+    document.getElementById("alloc_"+taskid).style.zIndex=1;
+    this.style.zIndex=-1;
+  }
+    
+  });
 }
 
 
@@ -509,10 +523,15 @@ function GenProgressUI(proj,mod,tsk,taskid)
   var alloc =document.createElement("p");
   alloc.id="alloc_"+taskid;
   alloc.innerHTML="allocation %";
+  var editalloc=document.createElement("input");
+  editalloc.type="text";
+  editalloc.maxLength=2;
+  editalloc.id="edit_"+taskid;
   progressDiv.appendChild(aside);
   aside.appendChild(btnpause);
   aside.appendChild(btnstop);
   aside.appendChild(alloc);
+  aside.appendChild(editalloc);
   
   var footer = document.createElement("footer");
   var ftrleft = document.createElement("div");
